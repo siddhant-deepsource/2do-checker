@@ -78,7 +78,6 @@ func writeMacroResult(result MacroResult) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(string(resultJSON))
 
 	f, err := os.Create(path.Join(toolboxPath, "analysis_results.json"))
 	if err != nil {

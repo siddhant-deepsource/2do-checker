@@ -1,0 +1,161 @@
+{
+  "issues": [
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "todo-checker",
+        "position": {
+          "begin": { "line": 1701, "column": 0 },
+          "end": { "line": 1701, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "todo-checker",
+        "position": {
+          "begin": { "line": 1731, "column": 0 },
+          "end": { "line": 1731, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "a.json",
+        "position": {
+          "begin": { "line": 5, "column": 0 },
+          "end": { "line": 5, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "a.json",
+        "position": {
+          "begin": { "line": 16, "column": 0 },
+          "end": { "line": 16, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "a.json",
+        "position": {
+          "begin": { "line": 27, "column": 0 },
+          "end": { "line": 27, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "a.json",
+        "position": {
+          "begin": { "line": 38, "column": 0 },
+          "end": { "line": 38, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "a.json",
+        "position": {
+          "begin": { "line": 49, "column": 0 },
+          "end": { "line": 49, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "a.json",
+        "position": {
+          "begin": { "line": 60, "column": 0 },
+          "end": { "line": 60, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "a.json",
+        "position": {
+          "begin": { "line": 71, "column": 0 },
+          "end": { "line": 71, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "utils.go",
+        "position": {
+          "begin": { "line": 47, "column": 0 },
+          "end": { "line": 47, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "I001.toml",
+        "position": {
+          "begin": { "line": 1, "column": 0 },
+          "end": { "line": 1, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "I001.toml",
+        "position": {
+          "begin": { "line": 5, "column": 0 },
+          "end": { "line": 5, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "analyzer.toml",
+        "position": {
+          "begin": { "line": 4, "column": 0 },
+          "end": { "line": 4, "column": 0 }
+        }
+      }
+    },
+    {
+      "issue_code": "I001",
+      "issue_text": "Possible TODO comment found",
+      "location": {
+        "path": "main.go",
+        "position": {
+          "begin": { "line": 29, "column": 0 },
+          "end": { "line": 29, "column": 0 }
+        }
+      }
+    }
+  ],
+  "is_passed": true,
+  "errors": null,
+  "extra_data": null
+}
