@@ -8,26 +8,28 @@ import (
 )
 
 var (
-	codePath    string = os.Getenv("CODE_PATH")
-	toolboxPath string = os.Getenv("TOOLBOX_PATH")
-	issues      []Issue
+	issues       []Diagnostic
+	analysisConf *AnalysisConfig
+	codePath     string = os.Getenv("CODE_PATH")
+	toolboxPath  string = os.Getenv("TOOLBOX_PATH")
 )
 
 func main() {
-	analysisFiles, err := getAllFiles()
-	if err != nil {
-		log.Fatalln("Failed to read files  to analyze. Exiting....")
+	var err error
+	log.Println("Parsing analysis_config.json...")
+	if analysisConf, err = readAnalysisConfig(); err != nil {
+		log.Fatalln(err)
 	}
 
-	for _, path := range analysisFiles {
-		content, err := ioutil.ReadFile(path)
+	for _, path := range analysisConf.Files {
+		content, err := ioutil.ReadFile(string(path.URI))
 		if err != nil {
 			log.Fatal(err)
 		}
 		lines := strings.Split(string(content), "\n")
 		for lineNumber, line := range lines {
 			if strings.Contains(line, "TODO") {
-				createIssue(path, lineNumber, 0)
+				createIssue(string(path.URI), lineNumber, 0)
 			}
 		}
 	}

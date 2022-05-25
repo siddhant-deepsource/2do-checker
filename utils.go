@@ -2,13 +2,95 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	"log"
 	"os"
 	"path"
 	"strings"
 
 	"github.com/karrick/godirwalk"
 )
+
+func createIssue(filePath string, lineNumber, column int) {
+	vcsPath := path.Base(filePath)
+	actualLineNumber := lineNumber + 1
+
+	// issue := Diagnostic{
+	//     Code:  "I001",
+	//     Title: "Possible TODO comment found",
+	//     Location: Location{
+	//         Path: vcsPath,
+	//         Position: Position{
+	//             Begin: Coordinate{
+	//                 Line:   actualLineNumber,
+	//                 Column: column,
+	//             },
+	//             End: Coordinate{
+	//                 Line: actualLineNumber,
+	//             },
+	//         },
+	//     },
+	// }
+
+	issue := Diagnostic{
+		Code:    "I001",
+		Message: "Found a TODO comment",
+		Range: Range{
+			Start: Position{
+				Line: actualLineNumber,
+			},
+			End: Position{
+				Line: actualLineNumber,
+			},
+		},
+		RelatedInformation: []DiagnosticRelatedInformation{
+			{
+				Location: Location{
+					URI: vcsPath,
+					Range: Range{
+						Start: Position{
+							Line: actualLineNumber,
+						},
+						End: Position{
+							Line: actualLineNumber,
+						},
+					},
+				},
+				Message: "Found a TODO comment",
+			},
+		},
+	}
+	issues = append(issues, issue)
+}
+
+func prepareResult() AnalysisResult {
+	result := AnalysisResult{}
+	result.Issues = issues
+	result.IsPassed = false
+
+	if len(issues) > 0 {
+		result.IsPassed = true
+	}
+
+	return result
+}
+
+func writeMacroResult(result AnalysisResult) error {
+	resultJSON, err := json.Marshal(result)
+	if err != nil {
+		return err
+	}
+
+	f, err := os.Create(path.Join(toolboxPath, "analysis_results.json"))
+	if err != nil {
+		return err
+	}
+
+	defer f.Close()
+	if _, err2 := f.Write(resultJSON); err2 != nil {
+		return err
+	}
+	return nil
+}
 
 // getAllFiles walks through the code directory and logs all the files
 func getAllFiles() ([]string, error) {
@@ -33,60 +115,6 @@ func getAllFiles() ([]string, error) {
 	}); err != nil {
 		return nil, err
 	}
-	fmt.Println("Total files: ", fileCount)
-
+	log.Println("Total files: ", fileCount)
 	return allFiles, nil
-}
-
-func createIssue(filePath string, lineNumber, column int) {
-	vcsPath := path.Base(filePath)
-	actualLineNumber := lineNumber + 1
-
-	issue := Issue{
-		Code:  "I001",
-		Title: "Possible TODO comment found",
-		Location: Location{
-			Path: vcsPath,
-			Position: Position{
-				Begin: Coordinate{
-					Line:   actualLineNumber,
-					Column: column,
-				},
-				End: Coordinate{
-					Line: actualLineNumber,
-				},
-			},
-		},
-	}
-	issues = append(issues, issue)
-}
-
-func prepareResult() MacroResult {
-	result := MacroResult{}
-	result.Issues = issues
-	result.IsPassed = false
-
-	if len(issues) > 0 {
-		result.IsPassed = true
-	}
-
-	return result
-}
-
-func writeMacroResult(result MacroResult) error {
-	resultJSON, err := json.Marshal(result)
-	if err != nil {
-		return err
-	}
-
-	f, err := os.Create(path.Join(toolboxPath, "analysis_results.json"))
-	if err != nil {
-		return err
-	}
-
-	defer f.Close()
-	if _, err2 := f.Write(resultJSON); err2 != nil {
-		return err
-	}
-	return nil
 }
