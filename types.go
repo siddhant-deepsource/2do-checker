@@ -8,9 +8,9 @@ type DiagnosticSeverity int
 
 const (
 	Error       DiagnosticSeverity = 1
-	Warning                        = 2
-	Information                    = 3
-	Hint                           = 4
+	Warning     DiagnosticSeverity = 2
+	Information DiagnosticSeverity = 3
+	Hint        DiagnosticSeverity = 4
 )
 
 type Position struct {
@@ -59,12 +59,17 @@ type Metric struct {
 	Namespaces []Namespace `json:"namespaces"`
 }
 
+type AnalyzerError struct {
+	HMessage string `json:"hmessage"`
+	Level    int    `json:"level"`
+}
+
 type AnalysisResult struct {
-	Issues    []Diagnostic `json:"issues"`
-	Metrics   []Metric     `json:"metrics,omitempty"`
-	IsPassed  bool         `json:"is_passed"`
-	Errors    []Diagnostic `json:"errors"`
-	ExtraData interface{}  `json:"extra_data"`
+	Issues    []Diagnostic    `json:"issues"`
+	Metrics   []Metric        `json:"metrics,omitempty"`
+	IsPassed  bool            `json:"is_passed"`
+	Errors    []AnalyzerError `json:"errors"`
+	ExtraData interface{}     `json:"extra_data"`
 }
 
 ////////////////////////////

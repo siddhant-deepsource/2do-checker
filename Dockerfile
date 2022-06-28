@@ -17,12 +17,10 @@ RUN go env -w GOPRIVATE=github.com/siddhant-deepsource/*
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /app/todo-checker .
 
 # delete any user with uid 1000, then create the runner user with uid 1000
-RUN getent passwd 1000 | cut -d: -f1 | xargs -r userdel && \
-	useradd -u 1000 runner && \
-	mkdir -p /home/runner && \
-	chmod -R o-rwx /code /toolbox
-
-RUN chown -R runner:runner /toolbox /code /home/runner
+RUN adduser -D -u 1000 runner runner && \
+    mkdir -p /.cache /code /home/runner/go && \
+    chmod -R ugo+rwx /toolbox /.cache /code /home/runner && \
+    chown -R runner:runner /toolbox /.cache /code /home/runner
 
 WORKDIR /app
 
