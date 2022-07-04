@@ -1,7 +1,7 @@
-name = "2do-Checker"
-shortcode = "@siddhant-deepsource/2do-checker"
+name = "Test Analyzer"
+shortcode = "@test-ns/analyzer-2"
 description = "Checks for TODO comments and flags them."
-tags = ["todo", "TODO", "checker"]
+tags = ["ochecker"]
 repository = "https://github.com/siddhant-deepsource/2do-checker"
 documentation = ""
 bug_tracker = ""
