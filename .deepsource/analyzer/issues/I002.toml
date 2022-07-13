@@ -1,4 +1,15 @@
 title = "This is a test issue title"
 category = "bug-risk"
 description = """
-helloaain"""
+Bourne shells are very whitespace sensitive.
+Adding or removing spaces can drastically alter the meaning of a script.
+In these cases, you're missing a space at the position indicated.
+Problematic code:
+```bash
+if [ "$STUFF" = ""]; then
+```
+Correct code:
+```bash
+if [ "$STUFF" = "" ]; then
+```
+"""

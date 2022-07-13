@@ -6,68 +6,46 @@ import (
 	"path"
 )
 
-func createIssue(filePath string, lineNumber, _ int) {
+func createIssue(filePath string, lineNumber, column int) {
+	vcsPath := path.Base(filePath)
 	actualLineNumber := lineNumber + 1
 
-	issue := Diagnostic{
-		Code:    "I001",
-		Message: "Found a TODO comment",
-		Range: Range{
-			Start: Position{
-				Line: actualLineNumber,
-			},
-			End: Position{
-				Line: actualLineNumber,
-			},
-		},
-		RelatedInformation: []DiagnosticRelatedInformation{
-			{
-				Location: Location{
-					URI: filePath,
-					Range: Range{
-						Start: Position{
-							Line: actualLineNumber,
-						},
-						End: Position{
-							Line: actualLineNumber,
-						},
-					},
+	issue := Issue{
+		Code:  "I001",
+		Title: "Possible TODO comment found",
+		Location: Location{
+			Path: vcsPath,
+			Position: Position{
+				Begin: Coordinate{
+					Line:   actualLineNumber,
+					Column: column,
 				},
-				Message: "Found a TODO comment",
+				End: Coordinate{
+					Line: actualLineNumber,
+				},
 			},
 		},
 	}
 	issues = append(issues, issue)
 }
 
-func createDummyIssue(filePath string, lineNumber, _ int) {
+func createDummyIssue(filePath string, lineNumber, column int) {
+	vcsPath := path.Base(filePath)
 	actualLineNumber := lineNumber + 1
 
-	issue := Diagnostic{
-		Code:    "I002",
-		Message: "Fix this please",
-		Range: Range{
-			Start: Position{
-				Line: actualLineNumber,
-			},
-			End: Position{
-				Line: actualLineNumber,
-			},
-		},
-		RelatedInformation: []DiagnosticRelatedInformation{
-			{
-				Location: Location{
-					URI: filePath,
-					Range: Range{
-						Start: Position{
-							Line: actualLineNumber,
-						},
-						End: Position{
-							Line: actualLineNumber,
-						},
-					},
+	issue := Issue{
+		Code:  "I002",
+		Title: "This is a demo issue",
+		Location: Location{
+			Path: vcsPath,
+			Position: Position{
+				Begin: Coordinate{
+					Line:   actualLineNumber,
+					Column: column,
 				},
-				Message: "Fix this please",
+				End: Coordinate{
+					Line: actualLineNumber,
+				},
 			},
 		},
 	}
@@ -78,20 +56,6 @@ func prepareResult() AnalysisResult {
 	result := AnalysisResult{}
 	result.Issues = issues
 	result.IsPassed = false
-	namespace := Namespace{
-		Key:   "2do-checker",
-		Value: 20,
-	}
-	metric := Metric{
-		MetricCode: "IDP",
-	}
-	metric.Namespaces = append(metric.Namespaces, namespace)
-	result.Metrics = append(result.Metrics, metric)
-	error := AnalyzerError{
-		HMessage: "This is an error.",
-		Level:    0,
-	}
-	result.Errors = append(result.Errors, error)
 
 	if len(issues) > 0 {
 		result.IsPassed = true
@@ -100,11 +64,20 @@ func prepareResult() AnalysisResult {
 	return result
 }
 
-func writeMacroResult(result *AnalysisResult) error {
+func writeMacroResult(result AnalysisResult) error {
 	resultJSON, err := json.Marshal(result)
 	if err != nil {
 		return err
 	}
 
-	return os.WriteFile(path.Join(toolboxPath, "analysis_results.json"), resultJSON, 0o777)
+	f, err := os.Create(path.Join(toolboxPath, "analysis_results.json"))
+	if err != nil {
+		return err
+	}
+
+	defer f.Close()
+	if _, err2 := f.Write(resultJSON); err2 != nil {
+		return err
+	}
+	return nil
 }

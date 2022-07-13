@@ -1,4 +1,12 @@
 title = "Found a TODO comment"
 category = "doc"
 description = """
-hello"""
+Problematic code:
+```
+echo "this is a test"
+```
+Correct code:
+```
+echo "this is a test"
+```
+"""

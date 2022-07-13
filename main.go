@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	issues       []Diagnostic
+	issues       []Issue
 	analysisConf *AnalysisConfig
 	toolboxPath  string = os.Getenv("TOOLBOX_PATH")
 	codePath     string = os.Getenv("CODE_PATH")
@@ -29,7 +29,7 @@ func main() {
 
 	fmt.Println("Resolving files and running analysis...")
 	for _, path := range analysisConf.Files {
-		content, err := ioutil.ReadFile(string(path.URI))
+		content, err := ioutil.ReadFile(path)
 		if err != nil {
 			fmt.Printf("Failed to read file: %s. Error: %s", path, err)
 			continue
@@ -37,16 +37,16 @@ func main() {
 		lines := strings.Split(string(content), "\n")
 		for lineNumber, line := range lines {
 			if strings.Contains(line, "TODO") {
-				createIssue(string(path.URI), lineNumber, 0)
-				createDummyIssue(string(path.URI), lineNumber, 0)
+				createIssue(path, lineNumber, 0)
+				createDummyIssue(path, lineNumber, 0)
 			}
 		}
 	}
 	fmt.Println("Preparing analysis result...")
-	macroAnalysisResult := prepareResult()
+	analysisResult := prepareResult()
 
 	fmt.Println("Writing the result to", path.Join(toolboxPath, "analysis_results.json"))
-	if writeError := writeMacroResult(&macroAnalysisResult); writeError != nil {
+	if writeError := writeMacroResult(analysisResult); writeError != nil {
 		log.Fatalln("Error occured while writing results:", writeError)
 	}
 }
