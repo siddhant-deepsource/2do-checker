@@ -12,7 +12,7 @@ func createIssue(filePath string, lineNumber, column int) {
 	actualLineNumber := lineNumber + 1
 
 	issue := Issue{
-		Code:  "I001",
+		Code:  "GEG-I001",
 		Title: "Possible TODO comment found",
 		Location: Location{
 			Path: vcsPath,
@@ -35,7 +35,7 @@ func createDummyIssue(filePath string, lineNumber, column int) {
 	actualLineNumber := lineNumber + 1
 
 	issue := Issue{
-		Code:  "I002",
+		Code:  "GEG-I002",
 		Title: "This is a demo issue",
 		Location: Location{
 			Path: vcsPath,
