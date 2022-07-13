@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"os"
 	"path"
+	"strings"
 )
 
 func createIssue(filePath string, lineNumber, column int) {
-	vcsPath := path.Base(filePath)
+	vcsPath := strings.TrimPrefix(filePath, codePath)
 	actualLineNumber := lineNumber + 1
 
 	issue := Issue{
@@ -30,7 +31,7 @@ func createIssue(filePath string, lineNumber, column int) {
 }
 
 func createDummyIssue(filePath string, lineNumber, column int) {
-	vcsPath := path.Base(filePath)
+	vcsPath := strings.TrimPrefix(filePath, codePath)
 	actualLineNumber := lineNumber + 1
 
 	issue := Issue{
