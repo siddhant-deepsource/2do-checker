@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// createIssue creates the issue.
 func createIssue(filePath string, lineNumber, column int) {
 	vcsPath := strings.TrimPrefix(filePath, codePath)
 	actualLineNumber := lineNumber + 1
