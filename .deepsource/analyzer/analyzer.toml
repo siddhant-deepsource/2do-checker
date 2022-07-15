@@ -1,5 +1,5 @@
 name = "Todo Checker"
-shortcode = "@helloworld/todo-analyzer"
+shortcode = "@sdfsdf/chcker"
 description = "Checks for TODO comments and flags them."
 tags = ["todo", "comment-checker"]
 repository = "https://github.com/siddhant-deepsource/2do-checker"
