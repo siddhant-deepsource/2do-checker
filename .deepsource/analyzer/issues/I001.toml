@@ -1,12 +1,5 @@
-title = "Found a TODO comment"
-category = "doc"
-description = """
-Problematic code:
-```
-echo "this is a test"
-```
-Correct code:
-```
-echo "this is a test"
-```
+title="Found a TODO comment"
+category="doc"
+description="""
+Found a TODO comment that should be resolved.
 """
